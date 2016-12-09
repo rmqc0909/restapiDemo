@@ -14,6 +14,7 @@ import java.util.concurrent.*;
 public class Demo1 {
     @Test
     public void test() throws InterruptedException, ExecutionException {
+        long beginTime = System.currentTimeMillis();
         int BUFFER_SIZE = 1024;
         int THREAD_NUMBERS = 4;
         /**
@@ -42,7 +43,7 @@ public class Demo1 {
         Future<?> future = executors.submit(new Callable<Void>() {
             public Void call() throws Exception {
                 long seq;
-                for (int i = 0; i < 1000000; i++) {
+                for (int i = 0; i < 10000000; i++) {
                     seq = ringBuffer.next();    //占个坑 --ringBuffer一个可用区块
                     ringBuffer.get(seq).setPrice(Math.random() * 9999);     //给这个区块放入数据
                     ringBuffer.publish(seq);    //发布这个区块的数据使handler(consumer)可见
@@ -55,7 +56,7 @@ public class Demo1 {
         Thread.sleep(1000);
         transactionBatchEventProcessor.halt();  //通知事件(或者说消息)处理器 可以结束了（并不是马上结束!!!）
         executors.shutdown();   //终止线程
-
+        System.out.println("总耗时:"+(System.currentTimeMillis() - beginTime));
 
     }
 

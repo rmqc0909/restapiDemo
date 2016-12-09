@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 public class Demo2 {
     @Test
     public void test() throws InterruptedException{
+        long beginTime = System.currentTimeMillis();
         int BUFFER_SIZE=1024;
         int THREAD_NUMBERS=4;
         EventFactory<TradeTransaction> eventFactory = new EventFactory<TradeTransaction>() {
@@ -32,7 +33,7 @@ public class Demo2 {
 
         workerPool.start(executors);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000000; i++) {
             long seq = ringBuffer.next();
             ringBuffer.get(seq).setPrice(Math.random() * 9999);
             ringBuffer.publish(seq);
@@ -41,5 +42,7 @@ public class Demo2 {
         Thread.sleep(1000);
         workerPool.halt();
         executors.shutdown();
+
+        System.out.println("总耗时:"+(System.currentTimeMillis() - beginTime));
     }
 }

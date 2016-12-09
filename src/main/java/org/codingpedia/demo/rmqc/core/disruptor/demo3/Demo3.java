@@ -46,6 +46,6 @@ public class Demo3 {
         latch.await();      //等待生产者完事.
         disruptor.shutdown();
         executors.shutdown();
-        System.out.println("总耗时:"+(System.currentTimeMillis()-beginTime));
+        System.out.println("总耗时:"+(System.currentTimeMillis() - beginTime));
     }
 }
