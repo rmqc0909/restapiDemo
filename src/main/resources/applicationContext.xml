@@ -1,0 +1,64 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"	
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+	 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		 
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+	<context:component-scan base-package="org.codingpedia.demo.*" />
+
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	<context:property-placeholder location="classpath:db.properties"/>
+ 
+	<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	-->	
+	<tx:annotation-driven transaction-manager="transactionManager" />  
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>  
+    	
+	<!-- =============== MyBATIS beans configuration ================== -->
+	<bean id="podcastDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>    
+	   <property name="mapperInterface" value="org.codingpedia.demo.rmqc.core.podcast.dao.PodcastDao" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource" />
+	    <property name="configLocation" value="classpath:config/mybatisV3.xml"/>
+	</bean>
+	
+    <bean id="podcastRestService" class="org.codingpedia.demo.rmqc.rest.PodcastRestService" >
+    	<property name="podcastDao" ref="podcastDao"/>
+    </bean>
+
+	<bean id="dataSource" destroy-method="close"
+		  class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${db.driver}"/>
+		<property name="url" value="${db.url}"/>
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+		<property name="initialSize" value="3"/>
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+		<property name="numTestsPerEvictionRun" value="6" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="maxActive" value="5" />
+		<property name="maxIdle" value="5" />
+		<property name="maxWait" value="5000" />
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxOpenPreparedStatements" value="10" />
+	</bean>
+
+</beans>

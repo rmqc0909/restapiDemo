@@ -1,0 +1,43 @@
+<!-- Logback为取代log4j而生。 Logback由log4j的创立者Ceki Gülcü设计。以十多年设计工业级记录系统的经验为基础，所创建的logback比现有任何记录系统更快、占用资源更少，有时差距非常大 
+	需要添加的 JAR 包: logback-core.jar – logback 核心包，必备 slf4j-api.jar – 通用日志接口包，可以在logback与其他记录系统如log4j和java.util.logging 
+	(JUL)之间轻松互相切换 Logback-classic – 实现了 SLF4J API，扩展了core模块 1. 系统启动，默认家在classpath下的logback.xml 
+	或者 logback-test.xml。 这里可以把默认配置文件的位置作为系统属性进行指定 java -Dlogback.configurationFile=/path/to/config.xml 
+	chapters.configuration.MyApp1 2. 在根元素configuration中配置属性scan=”true”后，当配置文件修改后自动重新加载，默认每分钟扫描一次。 
+	configuration元素的 scanPeriod 属性控制扫描周期，其值可以带时间单位，包括：milliseconds、seconds、minutes和hours。 
+	如果没写明时间单位，则默认为毫秒。示例：
+	生成的日志文件最终在tomcat的bin目录下。
+	-->
+<configuration scan="false" scanPeriod="10 seconds" debug="false">
+	<!-- 为提高性能，不会在每个logger被调用时去检查是否需要扫描，而是每隔16次记录操作进行一次检查。 简言之，当配置文件改变后，它会被延时重新加载，延时时间由扫描间隔时间和一些logger调用所决定 
+		debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+	<!-- 尽量别用绝对路径，如果带参数不同容器路径解释可能不同 -->
+	<property name="LOG_HOME" value="restdemo/log" />
+	<root level="ERROR" />
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%X{requestId} %X{remoteAddr} %d{HH:mm:ss.SSS} %-5level
+				[%logger{16}]
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="service"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/service/service_%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%X{requestId} %X{remoteAddr} %d{HH:mm:ss.SSS} %-5level
+				[%logger{16}]
+				%msg%n   </pattern>
+		</layout>
+	</appender>
+	<logger name="org.codingpedia.demo" level="INFO">
+		<appender-ref ref="Console" />
+	</logger>
+	<logger name="org.codingpedia.demo.rmqc.rest.PodcastRestService" level="DEBUG">
+		<appender-ref ref="service" />
+	</logger>
+</configuration>
