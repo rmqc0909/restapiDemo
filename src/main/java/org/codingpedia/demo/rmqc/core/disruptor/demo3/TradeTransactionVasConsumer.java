@@ -11,5 +11,6 @@ public class TradeTransactionVasConsumer implements EventHandler<TradeTransactio
     @Override
     public void onEvent(TradeTransaction tradeTransaction, long l, boolean b) throws Exception {
         //do something...
+        System.out.println("handling the TradeTransactionVasConsumer~~~");
     }
 }

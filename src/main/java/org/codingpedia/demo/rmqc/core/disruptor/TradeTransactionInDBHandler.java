@@ -18,6 +18,6 @@ public class TradeTransactionInDBHandler implements EventHandler<TradeTransactio
     public void onEvent(TradeTransaction tradeTransaction) throws Exception {
         //这里是具体的消费逻辑
         tradeTransaction.setId(UUID.randomUUID().toString());   //生成ID
-        System.out.println(tradeTransaction.getId());
+        System.out.println("TradeTransactionInDBHandler:" + tradeTransaction.getId());
     }
 }

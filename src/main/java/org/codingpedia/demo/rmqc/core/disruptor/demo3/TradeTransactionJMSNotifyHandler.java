@@ -12,5 +12,6 @@ public class TradeTransactionJMSNotifyHandler implements EventHandler<TradeTrans
     @Override
     public void onEvent(TradeTransaction tradeTransaction, long l, boolean b) throws Exception {
         //do send jms message
+        System.out.println("handling the TradeTransactionJMSNotifyHandler after C1 and C2 finished!");
     }
 }
