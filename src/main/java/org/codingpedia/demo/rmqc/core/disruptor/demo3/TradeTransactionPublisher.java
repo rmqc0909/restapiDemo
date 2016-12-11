@@ -9,6 +9,13 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by xiedan11 on 2016/12/9.
+ * 写入数据有两种方式,方式1有两个优点:
+ * 1.隐藏了RingBuffer，业务方无需直接对RingBuffer进行写入操作（fill和publish）
+ * 2.数据的fill和publish可以用单独的类进行封装，方便维护
+ */
+
+/**
+ * 方式1
  */
 public class TradeTransactionPublisher implements Runnable {
     Disruptor<TradeTransaction> disruptor;
@@ -47,3 +54,31 @@ class TradeTransactionEventTranslator implements EventTranslator<TradeTransactio
         return transaction;
     }
 }
+
+
+/**
+ * 方式2
+ *
+
+ public TradeTransactionPublisher implements Runnable{
+
+     final RingBuffer<TradeTransaction> ringBuffer = RingBuffer.createSingleProducer(new EventFactory<TradeTransaction>() {
+     public TradeTransaction newInstance() {
+     return new TradeTransaction();
+     }
+     }, BUFFER_SIZE, new YieldingWaitStrategy());
+
+
+     @Override
+     public void run() {
+     long seq;
+     for (int i = 0; i < 10000000; i++) {
+     seq = ringBuffer.next();    //占个坑 --ringBuffer一个可用区块
+     ringBuffer.get(seq).setPrice(Math.random() * 9999);     //给这个区块放入数据
+     ringBuffer.publish(seq);    //发布这个区块的数据使handler(consumer)可见
+     }
+     latch.countDown();
+     }
+ }
+
+ */
