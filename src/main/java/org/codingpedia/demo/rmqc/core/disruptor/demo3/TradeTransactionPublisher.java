@@ -24,13 +24,17 @@ public class TradeTransactionPublisher implements Runnable {
     public void run() {
         TradeTransactionEventTranslator eventTranslator = new TradeTransactionEventTranslator();
         for (int i = 0; i < LOOP; i++) {
-            disruptor.publishEvent(eventTranslator);
+            disruptor.publishEvent(eventTranslator);    //3.将事件提交到 RingBuffer
         }
         latch.countDown();
     }
 
 }
 
+/**
+ * 1.先从 RingBuffer 获取下一个可以写入的事件的序号
+ * 2.获取对应的事件对象，将数据写入事件对象
+ */
 class TradeTransactionEventTranslator implements EventTranslator<TradeTransaction> {
     private Random random = new Random();
     @Override
