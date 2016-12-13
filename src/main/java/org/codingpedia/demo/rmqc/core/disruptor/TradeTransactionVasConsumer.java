@@ -1,4 +1,4 @@
-package org.codingpedia.demo.rmqc.core.disruptor.demo3;
+package org.codingpedia.demo.rmqc.core.disruptor;
 
 import com.lmax.disruptor.EventHandler;
 import org.codingpedia.demo.rmqc.core.disruptor.TradeTransaction;

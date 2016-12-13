@@ -1,6 +1,6 @@
 package org.codingpedia.demo.rmqc.core.podcast.bean;
 
-import javax.xml.bind.annotation.XmlRootElement;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +10,6 @@ import java.util.Date;
  * @author ama
  *
  */
-@XmlRootElement
 public class Podcast implements Serializable {
 
 	private static final long serialVersionUID = -8039686696076337053L;
@@ -34,17 +33,17 @@ public class Podcast implements Serializable {
 	private Date insertionDate;
 
 	public Podcast(){}
-	
+
 	public Podcast(String title, String linkOnPodcastpedia, String feed,
                    String description) {
-		
+
 		this.title = title;
 		this.linkOnPodcastpedia = linkOnPodcastpedia;
 		this.feed = feed;
 		this.description = description;
-		
+
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}

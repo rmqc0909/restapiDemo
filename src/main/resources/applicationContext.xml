@@ -1,8 +1,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"	
-	xsi:schemaLocation="
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="
 		http://www.springframework.org/schema/beans	
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 	 
@@ -11,37 +11,40 @@
 		 
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
- 
+
 	<context:component-scan base-package="org.codingpedia.demo.*" />
 
 	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
 	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
 	<context:property-placeholder location="classpath:db.properties"/>
- 
+
 	<!--
 		Instruct Spring to perform declarative transaction management
 		automatically on annotated classes.
-	-->	
-	<tx:annotation-driven transaction-manager="transactionManager" />  
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>  
-    	
-	<!-- =============== MyBATIS beans configuration ================== -->
-	<bean id="podcastDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>    
-	   <property name="mapperInterface" value="org.codingpedia.demo.rmqc.core.podcast.dao.PodcastDao" />
+	-->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
-	
+
+
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	    <property name="dataSource" ref="dataSource" />
-	    <property name="configLocation" value="classpath:config/mybatisV3.xml"/>
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:org/codingpedia/demo/rmqc/core/*/mapper/*.xml" />
+		<property name="typeAliasesPackage" value="org.codingpedia.demo.rmqc.core.*.bean"/>
 	</bean>
-	
-    <bean id="podcastRestService" class="org.codingpedia.demo.rmqc.rest.PodcastRestService" >
-    	<property name="podcastDao" ref="podcastDao"/>
-    </bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="org.codingpedia.demo.rmqc"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+
+
 
 	<bean id="dataSource" destroy-method="close"
 		  class="org.apache.commons.dbcp.BasicDataSource">

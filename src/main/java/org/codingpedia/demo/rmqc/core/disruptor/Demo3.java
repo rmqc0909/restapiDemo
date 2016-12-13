@@ -1,12 +1,10 @@
-package org.codingpedia.demo.rmqc.core.disruptor.demo3;
+package org.codingpedia.demo.rmqc.core.disruptor;
 
 import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
-import org.codingpedia.demo.rmqc.core.disruptor.TradeTransaction;
-import org.codingpedia.demo.rmqc.core.disruptor.TradeTransactionInDBHandler;
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;

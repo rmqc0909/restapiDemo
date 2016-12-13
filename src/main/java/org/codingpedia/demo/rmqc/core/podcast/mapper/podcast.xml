@@ -3,7 +3,7 @@
  
 <mapper namespace="org.codingpedia.demo.rmqc.core.podcast.dao.PodcastDao">
 
-    <resultMap id="podcastMap" type="Podcast" >
+    <resultMap id="podcastMap" type="org.codingpedia.demo.rmqc.core.podcast.bean.Podcast" >
         <id column="id" property="id"  />
         <result column="title" property="title" />
         <result column="link_on_podcastpedia" property="linkOnPodcastpedia" />
@@ -14,7 +14,7 @@
  
     
  	<!-- ************** CREATE ************** -->
- 	<insert id="createPodcast" parameterType="Podcast">
+ 	<insert id="createPodcast" parameterType="org.codingpedia.demo.rmqc.core.podcast.bean.Podcast">
 		INSERT 
 			INTO podcasts
 		SET
@@ -67,7 +67,7 @@
     </select>
      	
  	<!-- ************** UPDATE ************** -->
- 	<update id="updatePodcast" parameterType="Podcast">
+ 	<update id="updatePodcast" parameterType="org.codingpedia.demo.rmqc.core.podcast.bean.Podcast">
 		UPDATE 
 			podcasts
 		SET 

@@ -1,8 +1,7 @@
-package org.codingpedia.demo.rmqc.core.disruptor.demo3;
+package org.codingpedia.demo.rmqc.core.disruptor;
 
 import com.lmax.disruptor.EventTranslator;
 import com.lmax.disruptor.dsl.Disruptor;
-import org.codingpedia.demo.rmqc.core.disruptor.TradeTransaction;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
