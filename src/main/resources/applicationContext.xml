@@ -41,7 +41,9 @@
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="org.codingpedia.demo.rmqc"/>
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		<!-- 这个属性一般都用不到，只有当你配置多数据源的时候，这时会有多个sqlSessionFactory，
+		你就需要通过该属性来指定哪一个sqlSessionFactory（值为SqlSessionFactoryBean <bean>配置中的id属性）。
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>	-->
 	</bean>
 
 

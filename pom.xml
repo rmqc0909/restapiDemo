@@ -166,6 +166,19 @@
       <artifactId>mybatis</artifactId>
       <version>3.4.1</version>
     </dependency>
+    <dependency>
+      <groupId>tk.mybatis</groupId>
+      <artifactId>mapper</artifactId>
+      <version>3.3.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+
+
 
     <!-- MySQL JDBC connector -->
     <dependency>
