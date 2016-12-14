@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!--指定特定数据库的jdbc驱动jar包的位置 -->
     <classPathEntry location="D:/MyDocuments/xiedan11/.m2/mysql/mysql-connector-java/5.1.27/mysql-connector-java-5.1.27.jar"/>
@@ -13,7 +15,7 @@
 
 
         <!-- 数据库连接, 四要素: 驱动名, URL, 用户名, 密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/rest_demo?allowMultiQueries=true" userId="root" password="">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/rest_demo?allowMultiQueries=true" userId="root" password="rimuqingchen0909">
         </jdbcConnection>
 
 
