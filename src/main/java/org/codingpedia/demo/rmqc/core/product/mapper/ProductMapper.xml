@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.codingpedia.demo.rmqc.core.product.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="org.codingpedia.demo.rmqc.core.product.bean.Product">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="feed" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="insertion_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="link_on_podcastpedia" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, feed, insertion_date, description, link_on_podcastpedia
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.codingpedia.demo.rmqc.core.product.bean.Product">
+    insert into product (id, title, feed, 
+      insertion_date, description, link_on_podcastpedia
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{feed,jdbcType=VARCHAR}, 
+      #{insertionDate,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{linkOnPodcastpedia,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.codingpedia.demo.rmqc.core.product.bean.Product">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="feed != null">
+        feed,
+      </if>
+      <if test="insertionDate != null">
+        insertion_date,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="linkOnPodcastpedia != null">
+        link_on_podcastpedia,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="feed != null">
+        #{feed,jdbcType=VARCHAR},
+      </if>
+      <if test="insertionDate != null">
+        #{insertionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="linkOnPodcastpedia != null">
+        #{linkOnPodcastpedia,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.codingpedia.demo.rmqc.core.product.bean.Product">
+    update product
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="feed != null">
+        feed = #{feed,jdbcType=VARCHAR},
+      </if>
+      <if test="insertionDate != null">
+        insertion_date = #{insertionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="linkOnPodcastpedia != null">
+        link_on_podcastpedia = #{linkOnPodcastpedia,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.codingpedia.demo.rmqc.core.product.bean.Product">
+    update product
+    set title = #{title,jdbcType=VARCHAR},
+      feed = #{feed,jdbcType=VARCHAR},
+      insertion_date = #{insertionDate,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      link_on_podcastpedia = #{linkOnPodcastpedia,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
