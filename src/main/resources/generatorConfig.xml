@@ -15,7 +15,7 @@
 
 
         <!-- 数据库连接, 四要素: 驱动名, URL, 用户名, 密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/rest_demo?allowMultiQueries=true" userId="root" password="rimuqingchen0909">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/rest_demo?allowMultiQueries=true" userId="root" password="">
         </jdbcConnection>
 
 
@@ -29,7 +29,7 @@
             targetPackage     指定生成的model生成所在的包名
             targetProject     指定在该项目下所在的路径
         -->
-        <javaModelGenerator targetPackage="org.codingpedia.demo.rmqc.core.product.bean" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="org.codingpedia.demo.rmqc.core.country.bean" targetProject="src/main/java">
             <!-- 是否对model添加 构造函数 -->
             <property name="constructorBased" value="true"/>
 
@@ -44,7 +44,7 @@
         </javaModelGenerator>
 
         <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
-        <sqlMapGenerator targetPackage="org.codingpedia.demo.rmqc.core.product.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="org.codingpedia.demo.rmqc.core.country.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
@@ -54,7 +54,7 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <javaClientGenerator targetPackage="org.codingpedia.demo.rmqc.core.product.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="org.codingpedia.demo.rmqc.core.country.dao" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
             <!--
                     定义Maper.java 源代码中的ByExample() 方法的可视性，可选的值有：
@@ -71,16 +71,19 @@
              -->
             <property name="methodNameCalculator" value=""/>
 
-            <!--
-                                                为生成的接口添加父接口
-             -->
+            <!-- 为生成的接口添加父接口 -->
             <property name="rootInterface" value=""/>
 
         </javaClientGenerator>
 
-        <table tableName="product" enableCountByExample="false"
+<!-- <table tableName="country" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="false">
+        </table>-->
+
+        <!-- 生成数据库中所有表 -->
+        <table tableName="%" >
+            <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>
 </generatorConfiguration>
