@@ -2,6 +2,7 @@ package org.codingpedia.demo.rmqc.core.podcast.dao;
 
 
 import org.codingpedia.demo.rmqc.core.podcast.bean.Podcast;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author ama
  * @see <a href="http://www.codingpedia.org/ama/spring-mybatis-integration-example/">http://www.codingpedia.org/ama/spring-mybatis-integration-example/</a>
  */
+@Repository
 public interface PodcastDao {
 	
 	public List<Podcast> getPodcasts();
