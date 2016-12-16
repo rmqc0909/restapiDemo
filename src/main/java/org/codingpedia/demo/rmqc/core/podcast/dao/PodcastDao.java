@@ -2,8 +2,6 @@ package org.codingpedia.demo.rmqc.core.podcast.dao;
 
 
 import org.codingpedia.demo.rmqc.core.podcast.bean.Podcast;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
