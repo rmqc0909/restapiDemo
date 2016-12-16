@@ -38,7 +38,7 @@
 	    <property name="configLocation" value="classpath:mybatis-config.xml"/>
 	</bean>
 	
-    <bean id="podcastRestService" class="org.codingpedia.demo.rmqc.rest.PodcastRestService" >
+    <bean id="podcastRestService" class="org.codingpedia.demo.rmqc.rest.PodcastRest" >
     	<property name="podcastDao" ref="podcastDao"/>
     </bean>
 </beans>
