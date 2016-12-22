@@ -24,7 +24,7 @@ import org.codingpedia.demo.rmqc.core.podcast.dao.PodcastDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -34,11 +34,11 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Slf4j
-@Component
+@Controller
 @Path("/podcasts")
-public class PodcastRestService {
+public class PodcastRest {
 
-    private final static Logger logger = LoggerFactory.getLogger(PodcastRestService.class);
+    private final static Logger logger = LoggerFactory.getLogger(PodcastRest.class);
 
     @Autowired
     private PodcastDao podcastDao;

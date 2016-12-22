@@ -37,7 +37,7 @@
 	<logger name="org.codingpedia.demo" level="INFO">
 		<appender-ref ref="Console" />
 	</logger>
-	<logger name="org.codingpedia.demo.rmqc.rest.PodcastRestService" level="DEBUG">
+	<logger name="org.codingpedia.demo.rmqc.rest.PodcastRest" level="DEBUG">
 		<appender-ref ref="service" />
 	</logger>
 </configuration>
